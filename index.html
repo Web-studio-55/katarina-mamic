@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katarina Mamić Design — Atelier & Web Shop</title>
+<meta name="description" content="Katarina Mamić Design — svečane haljine dizajnirane i krojene u zagrebačkom ateliru. Jednostavno, s dozom glamura.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --paper:#fcfaf9;
+    --rose-mist:#faf2f4;
+    --rose:#f3ccd6;
+    --rose-deep:#c98ba0;
+    --ink:#0e0d0d;
+    --char:#1c1a1a;
+    --stone:#948b8e;
+    --line:#ebe3e5;
+    --line-dark:#2c2829;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Jost',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-weight:300;
+    line-height:1.7;
+    letter-spacing:.015em;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond',serif;font-weight:400}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:'Jost',sans-serif}
+  ::selection{background:var(--rose);color:var(--ink)}
+  .wrap{max-width:1360px;margin:0 auto;padding:0 48px}
+  @media(max-width:700px){.wrap{padding:0 24px}}
+
+  /* ---------- Reveal animations ---------- */
+  .rv{opacity:0;transform:translateY(36px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.48s}
+
+  /* ---------- Preloader ---------- */
+  .loader{
+    position:fixed;inset:0;z-index:1000;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;
+    transition:opacity .8s var(--ease),visibility .8s;
+  }
+  .loader.done{opacity:0;visibility:hidden}
+  .loader img{height:72px;animation:pulse 1.6s ease-in-out infinite}
+  .loader .l-name{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.34em;text-transform:uppercase}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.96)}}
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    background:var(--ink);color:#f1ebee;
+    font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;
+    text-align:center;padding:11px 16px;font-weight:600;
+  }
+  .topbar em{font-style:normal;color:var(--rose)}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(252,250,249,.88);backdrop-filter:blur(16px);
+    border-bottom:1px solid transparent;
+    transition:border-color .4s,box-shadow .4s;
+  }
+  header.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 24px rgba(14,13,13,.04)}
+  .nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:92px}
+  .nav-links{display:flex;gap:44px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:400}
+  .nav-links a{position:relative;padding:6px 0;transition:opacity .3s;opacity:.85}
+  .nav-links a:hover{opacity:1}
+  .nav-links a::after{content:"";position:absolute;left:50%;bottom:0;width:0;height:1px;background:var(--ink);transition:all .45s var(--ease);transform:translateX(-50%)}
+  .nav-links a:hover::after{width:100%}
+  .logo{display:flex;align-items:center;gap:14px;justify-self:center;text-align:center}
+  .logo img{height:46px;width:auto}
+  .logo .logotext{display:flex;flex-direction:column;line-height:1.15;text-align:left}
+  .logo .name{font-family:'Cormorant Garamond',serif;font-size:23px;letter-spacing:.08em}
+  .logo .sub{font-size:9px;letter-spacing:.52em;text-transform:uppercase;color:var(--stone)}
+  .nav-actions{display:flex;align-items:center;gap:30px;justify-self:end}
+  .cart-btn{
+    display:flex;align-items:center;gap:10px;cursor:pointer;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;
+    background:none;border:none;color:var(--ink);
+  }
+  .cart-count{
+    min-width:20px;height:20px;border:1px solid var(--ink);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:10px;font-weight:400;transition:all .3s;
+  }
+  .cart-count.hot{background:var(--ink);color:var(--white)}
+  .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
+
+  /* ---------- Hero (image-first) ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--paper)}
+  .hero-grid{
+    position:relative;
+    display:grid;grid-template-columns:1.65fr 1fr;grid-template-rows:1fr 1fr;
+    gap:16px;height:calc(100vh - 175px);min-height:540px;
+  }
+  .hi{position:relative;overflow:hidden}
+  .hi .bg{position:absolute;inset:0;transition:transform 1.4s var(--ease)}
+  .hi:hover .bg{transform:scale(1.05)}
+  .hi1{grid-row:1/3}
+  .hi1 .bg{background:linear-gradient(168deg,#e9b3c2 0%,#b96e88 100%)}
+  .hi2 .bg{background:linear-gradient(168deg,#332e30,#0e0d0d)}
+  .hi3 .bg{background:linear-gradient(168deg,#f3ccd6,#cf93a7)}
+  .hi .cap{
+    position:absolute;right:22px;bottom:20px;z-index:2;
+    color:rgba(255,255,255,.8);font-size:10px;letter-spacing:.38em;text-transform:uppercase;
+  }
+  .hero-overlay{position:absolute;left:40px;bottom:40px;z-index:3;color:#fff}
+  .hero-kicker{
+    display:flex;align-items:center;gap:16px;
+    font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+    margin-bottom:24px;font-weight:400;color:rgba(255,255,255,.92);
+    text-shadow:0 1px 12px rgba(14,13,13,.25);
+  }
+  .hero-kicker::before{content:"";width:48px;height:1px;background:rgba(255,255,255,.75)}
+  .hero-overlay .btn{border-color:#fff;color:#fff}
+  .hero-overlay .btn::before{background:#fff}
+  .hero-overlay .btn:hover{color:var(--ink)}
+  .btn{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:19px 52px;font-size:11px;letter-spacing:.34em;text-transform:uppercase;font-weight:400;
+    border:1px solid var(--ink);color:var(--ink);background:transparent;
+    cursor:pointer;transition:all .5s var(--ease);position:relative;overflow:hidden;
+  }
+  .btn span{position:relative;z-index:2}
+  .btn::before{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+  .btn:hover::before{transform:scaleX(1)}
+  .btn:hover{color:var(--paper)}
+  .btn.solid{background:var(--ink);color:var(--paper)}
+  .btn.solid::before{background:var(--rose)}
+  .btn.solid:hover{color:var(--ink);border-color:var(--rose)}
+  .link-line{
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;
+    border-bottom:1px solid var(--ink);padding-bottom:6px;transition:all .3s;
+  }
+  .link-line:hover{color:var(--rose-deep);border-color:var(--rose-deep)}
+
+  .hv-ring{
+    position:absolute;left:62%;top:36px;margin-left:-75px;
+    width:150px;height:150px;border-radius:50%;
+    background:var(--paper);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 24px 48px rgba(14,13,13,.16);z-index:4;
+    animation:slowspin 26s linear infinite;
+  }
+  @keyframes slowspin{to{transform:rotate(360deg)}}
+  .hv-ring svg{width:100%;height:100%}
+  .hv-ring .heart{
+    position:absolute;font-size:30px;color:var(--rose-deep);
+    animation:slowspin 26s linear infinite reverse;
+  }
+
+  /* ---------- USP bar ---------- */
+  .usp{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--white);
+  }
+  .usp-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+  .usp-item{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    padding:30px 20px;border-left:1px solid var(--line);
+    font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;color:var(--ink);
+    transition:background .4s;
+  }
+  .usp-item:first-child{border-left:none}
+  .usp-item:hover{background:var(--rose-mist)}
+  .usp-item svg{width:22px;height:22px;stroke:var(--rose-deep);stroke-width:1.3;fill:none;flex-shrink:0}
+  @media(max-width:1080px){
+    .usp-grid{grid-template-columns:1fr 1fr}
+    .usp-item:nth-child(3){border-left:none}
+    .usp-item:nth-child(n+3){border-top:1px solid var(--line)}
+  }
+  @media(max-width:640px){
+    .usp-grid{grid-template-columns:1fr}
+    .usp-item{border-left:none;border-top:1px solid var(--line);justify-content:flex-start;padding:20px 24px}
+    .usp-item:first-child{border-top:none}
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section{padding:130px 0}
+  .sec-label{
+    display:flex;align-items:center;gap:18px;
+    font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--rose-deep);
+    margin-bottom:26px;font-weight:400;
+  }
+  .sec-label::before{content:"";width:56px;height:1px;background:var(--rose-deep)}
+  .sec-title{font-size:clamp(38px,4.4vw,64px);line-height:1.08;font-weight:300;letter-spacing:-.005em}
+  .sec-title em{font-style:italic;color:var(--rose-deep)}
+
+  /* ---------- Collections (editorial) ---------- */
+  .col-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:72px;flex-wrap:wrap}
+  .col-head p{max-width:380px;color:var(--stone);font-size:15px}
+  .collections{display:grid;grid-template-columns:repeat(12,1fr);gap:28px}
+  .col-card{position:relative;overflow:hidden;cursor:pointer}
+  .col-card .bg{position:absolute;inset:0;transition:transform 1.2s var(--ease)}
+  .col-card:hover .bg{transform:scale(1.06)}
+  .col-card .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,13,13,.5),transparent 55%);transition:opacity .5s}
+  .col-card .num{
+    position:absolute;top:26px;left:28px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,.75);
+  }
+  .col-meta{position:absolute;left:28px;right:28px;bottom:26px;color:var(--white);display:flex;justify-content:space-between;align-items:flex-end}
+  .col-meta h3{font-size:32px;font-weight:400;line-height:1.1}
+  .col-meta .cnt{font-size:10px;letter-spacing:.34em;text-transform:uppercase;opacity:.8}
+  .col-meta .arrow{
+    width:52px;height:52px;border:1px solid rgba(255,255,255,.55);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+    transition:all .4s var(--ease);flex-shrink:0;
+  }
+  .col-card:hover .arrow{background:var(--white);color:var(--ink);transform:rotate(45deg)}
+  .cc1{grid-column:span 7;height:560px}
+  .cc2{grid-column:span 5;height:560px}
+  .cc3{grid-column:span 5;height:440px}
+  .cc4{grid-column:span 7;height:440px}
+  .cc1 .bg{background:linear-gradient(160deg,#e9b3c2,#a95a75)}
+  .cc2 .bg{background:linear-gradient(160deg,#332e30,#0e0d0d)}
+  .cc3 .bg{background:linear-gradient(160deg,#f3ccd6,#cf93a7)}
+  .cc4 .bg{background:linear-gradient(160deg,#ded3d6,#9d8790)}
+
+  /* ---------- Shop ---------- */
+  #shop{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .shop-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;flex-wrap:wrap}
+  .filters{display:flex;gap:34px;flex-wrap:wrap}
+  .chip{
+    background:none;border:none;cursor:pointer;padding:6px 0;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;color:var(--stone);
+    border-bottom:1px solid transparent;transition:all .3s;
+  }
+  .chip.active,.chip:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:56px 36px}
+  .product{cursor:pointer}
+  .ph{
+    position:relative;aspect-ratio:3/4;overflow:hidden;margin-bottom:22px;
+    display:flex;align-items:center;justify-content:center;background:var(--rose-mist);
+  }
+  .ph .bg{position:absolute;inset:0;transition:transform 1.1s var(--ease)}
+  .product:hover .ph .bg{transform:scale(1.07)}
+  .ph .tag{
+    position:absolute;top:18px;left:18px;z-index:2;
+    background:var(--paper);padding:7px 18px;
+    font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);font-weight:400;
+  }
+  .ph .dress{
+    position:relative;z-index:1;font-family:'Cormorant Garamond',serif;
+    font-size:88px;font-style:italic;font-weight:300;color:rgba(255,255,255,.4);
+    transition:transform 1.1s var(--ease);
+  }
+  .product:hover .ph .dress{transform:translateY(-10px)}
+  .add{
+    position:absolute;left:18px;right:18px;bottom:18px;z-index:3;
+    background:rgba(252,250,249,.96);backdrop-filter:blur(8px);color:var(--ink);
+    border:none;cursor:pointer;padding:17px;
+    font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;
+    opacity:0;transform:translateY(14px);transition:all .45s var(--ease);
+  }
+  .add:hover{background:var(--ink);color:var(--paper)}
+  .product:hover .add{opacity:1;transform:none}
+  .p-info{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .p-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400}
+  .p-cat{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--stone);margin-top:3px}
+  .p-price{font-weight:300;font-size:15px;letter-spacing:.06em}
+  .shop-more{text-align:center;margin-top:80px}
+
+  /* gradients */
+  .g1{background:linear-gradient(168deg,#e9b3c2,#a95a75)}
+  .g2{background:linear-gradient(168deg,#f3ccd6,#cf93a7)}
+  .g3{background:linear-gradient(168deg,#cbb7d6,#8f74a3)}
+  .g4{background:linear-gradient(168deg,#332e30,#0e0d0d)}
+  .g5{background:linear-gradient(168deg,#f0dde2,#c5a3ad)}
+  .g6{background:linear-gradient(168deg,#ded3d6,#9d8790)}
+  .g7{background:linear-gradient(168deg,#c9c9c9,#6f6f6f)}
+  .g8{background:linear-gradient(168deg,#efc0ce,#b76d88)}
+
+  /* ---------- Quote ---------- */
+  .quote{background:var(--ink);color:var(--paper);text-align:center;position:relative;overflow:hidden}
+  .quote .heartmark{font-size:26px;color:var(--rose);margin-bottom:34px;display:inline-block}
+  .quote blockquote{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+    font-size:clamp(30px,3.8vw,54px);line-height:1.3;max-width:900px;margin:0 auto 36px;
+  }
+  .quote blockquote b{font-weight:400;font-style:normal;color:var(--rose)}
+  .quote cite{font-style:normal;font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:#8f8589}
+  .quote .big-k{
+    position:absolute;right:-40px;bottom:-90px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:340px;line-height:1;
+    color:transparent;-webkit-text-stroke:1px rgba(243,204,214,.14);pointer-events:none;
+  }
+
+  /* ---------- Atelier / About ---------- */
+  .atelier-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+  .at-visual{position:relative;height:640px}
+  .at-photo{
+    position:absolute;width:78%;height:82%;left:0;top:0;
+    background:#fff url("km-logo-veliki.png") center/78% no-repeat;
+    border:1px solid var(--line);box-shadow:0 40px 90px rgba(14,13,13,.09);
+  }
+  .at-card{
+    position:absolute;width:46%;right:0;bottom:0;
+    background:var(--ink);color:var(--paper);padding:40px 36px;
+    box-shadow:0 30px 70px rgba(14,13,13,.22);
+  }
+  .at-card .num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;line-height:1;color:var(--rose)}
+  .at-card .lbl{font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:#a99ea3;margin-top:12px}
+  .at-text p{color:var(--stone);margin-bottom:20px;max-width:500px;font-size:15.5px}
+  .at-text p.lead{
+    font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;
+    color:var(--ink);line-height:1.5;margin:28px 0 26px;
+  }
+  .at-services{margin:44px 0 48px;border-top:1px solid var(--line)}
+  .svc{
+    display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+    padding:22px 0;border-bottom:1px solid var(--line);transition:padding-left .4s var(--ease);
+  }
+  .svc:hover{padding-left:14px}
+  .svc .s-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--rose-deep);width:36px;flex-shrink:0}
+  .svc h4{font-size:20px;font-weight:500;flex:1}
+  .svc p{font-size:13px;color:var(--stone);max-width:300px;text-align:right;margin:0}
+
+  /* ---------- Instagram ---------- */
+  .ig-sec{background:var(--rose-mist)}
+  .ig-head{text-align:center;margin-bottom:64px}
+  .ig-head .sec-label{justify-content:center}
+  .ig-head .sec-label::before{display:none}
+  .ig-head h2{font-size:clamp(34px,4vw,56px);font-weight:300}
+  .ig-head p{color:var(--stone);margin-top:12px}
+  .ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .ig{
+    aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ig .bg{position:absolute;inset:0;transition:transform .9s var(--ease),filter .5s}
+  .ig img.bg{width:100%;height:100%;object-fit:cover}
+  .ig:hover .bg{transform:scale(1.08);filter:brightness(.7)}
+  .ig span{position:relative;z-index:2;color:var(--white);opacity:0;transition:opacity .4s;font-size:22px}
+  .ig:hover span{opacity:1}
+
+  /* ---------- Visit ---------- */
+  .visit{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+  .visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:96px;align-items:center;position:relative;z-index:2}
+  .visit .sec-label{color:var(--rose)}
+  .visit .sec-label::before{background:var(--rose)}
+  .visit h2{font-size:clamp(36px,4.2vw,60px);font-weight:300;line-height:1.1;margin-bottom:24px}
+  .visit h2 em{font-style:italic;color:var(--rose)}
+  .visit .lead{color:#a99ea3;max-width:440px;margin-bottom:44px;font-size:15.5px}
+  .btn.light{border-color:var(--paper);color:var(--paper)}
+  .btn.light::before{background:var(--paper)}
+  .btn.light:hover{color:var(--ink)}
+  .visit-info{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .vi{padding:30px 28px;border:1px solid var(--line-dark)}
+  .vi:nth-child(1){border-right:none;border-bottom:none}
+  .vi:nth-child(2){border-bottom:none}
+  .vi:nth-child(3){border-right:none}
+  .vi h4{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;font-weight:400}
+  .vi p{margin:0;color:#d8d0d3;font-size:15px;line-height:1.8}
+  .vi a:hover{color:var(--rose)}
+  .visit .big-heart{
+    position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+    font-size:420px;line-height:1;color:rgba(243,204,214,.05);pointer-events:none;z-index:1;
+  }
+
+  /* ---------- Newsletter ---------- */
+  .news{background:var(--white);border-top:1px solid var(--line)}
+  .news-inner{max-width:680px;margin:0 auto;text-align:center}
+  .news h2{font-size:clamp(30px,3.4vw,46px);font-weight:300;margin-bottom:16px}
+  .news h2 em{font-style:italic;color:var(--rose-deep)}
+  .news p{color:var(--stone);margin-bottom:40px}
+  .news-form{display:flex;border-bottom:1px solid var(--ink);max-width:520px;margin:0 auto}
+  .news-form input{
+    flex:1;border:none;background:none;outline:none;padding:16px 4px;
+    font-family:'Jost',sans-serif;font-size:14px;font-weight:300;letter-spacing:.04em;color:var(--ink);
+  }
+  .news-form input::placeholder{color:var(--stone)}
+  .news-form button{
+    background:none;border:none;cursor:pointer;
+    font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;color:var(--ink);
+    padding:16px 4px;transition:color .3s;
+  }
+  .news-form button:hover{color:var(--rose-deep)}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:#8f8589;font-size:13px}
+  .foot-top{
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;
+    padding:80px 0 64px;border-bottom:1px solid var(--line-dark);
+  }
+  .foot-brand .name{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--paper);letter-spacing:.04em}
+  .foot-brand .sub{font-size:9px;letter-spacing:.52em;text-transform:uppercase;color:var(--rose);display:block;margin-top:4px}
+  .foot-brand p{margin-top:20px;max-width:300px;line-height:1.8}
+  .foot h5{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--paper);margin-bottom:22px;font-weight:400}
+  .foot-col a{display:block;padding:5px 0;transition:color .3s}
+  .foot-col a:hover{color:var(--rose)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:28px 0;flex-wrap:wrap;font-size:11px;letter-spacing:.14em}
+  .foot-bottom .made{color:#6d6468}
+  .foot-bottom .made a{color:#8f8589;border-bottom:1px solid #3a3536}
+
+  /* ---------- Cart drawer ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(14,13,13,.5);z-index:200;
+    opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(3px);
+  }
+  .overlay.open{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;top:0;right:-460px;width:440px;max-width:94vw;height:100%;
+    background:var(--paper);z-index:201;transition:right .5s var(--ease);
+    display:flex;flex-direction:column;box-shadow:-30px 0 70px rgba(14,13,13,.25);
+  }
+  .drawer.open{right:0}
+  .drawer-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:30px 34px;border-bottom:1px solid var(--line);
+  }
+  .drawer-head h3{font-size:26px;font-weight:400}
+  .drawer-head h3 span{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--rose-deep)}
+  .drawer-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--stone);transition:transform .3s}
+  .drawer-close:hover{transform:rotate(90deg)}
+  .drawer-body{flex:1;overflow-y:auto;padding:24px 34px}
+  .cart-empty{text-align:center;color:var(--stone);margin-top:80px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.6}
+  .cart-item{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+  .ci-thumb{width:72px;height:96px;flex-shrink:0}
+  .ci-info{flex:1}
+  .ci-name{font-family:'Cormorant Garamond',serif;font-size:21px}
+  .ci-meta{font-size:10px;color:var(--stone);letter-spacing:.24em;text-transform:uppercase;margin-top:2px}
+  .ci-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .qty{display:flex;align-items:center;gap:14px;border:1px solid var(--line);padding:5px 14px}
+  .qty button{background:none;border:none;cursor:pointer;font-size:15px;color:var(--ink)}
+  .qty span{font-size:13px;min-width:14px;text-align:center}
+  .ci-price{font-size:14px;letter-spacing:.06em}
+  .ci-remove{
+    background:none;border:none;cursor:pointer;color:var(--stone);
+    font-size:9px;letter-spacing:.28em;text-transform:uppercase;margin-top:10px;padding:0;
+    border-bottom:1px solid transparent;transition:all .3s;
+  }
+  .ci-remove:hover{color:#a04b4b;border-bottom-color:#a04b4b}
+  .drawer-foot{padding:28px 34px;border-top:1px solid var(--line);background:var(--rose-mist)}
+  .total-row{display:flex;justify-content:space-between;font-size:16px;margin-bottom:20px;letter-spacing:.04em}
+  .total-row b{font-weight:400;font-size:19px}
+  .drawer-foot .btn{width:100%;justify-content:center}
+  .drawer-note{font-size:11px;color:var(--stone);text-align:center;margin-top:14px;letter-spacing:.06em}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;bottom:32px;left:50%;transform:translate(-50%,90px);
+    background:var(--ink);color:var(--paper);padding:16px 38px;
+    font-size:11px;letter-spacing:.28em;text-transform:uppercase;z-index:300;
+    transition:transform .5s var(--ease);
+  }
+  .toast em{font-style:normal;color:var(--rose)}
+  .toast.show{transform:translate(-50%,0)}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:1080px){
+    .grid{grid-template-columns:repeat(2,1fr);gap:44px 24px}
+    .collections{gap:20px}
+    .cc1,.cc2,.cc3,.cc4{grid-column:span 12;height:420px}
+    .hero-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;height:auto;min-height:0}
+    .hi1{grid-column:1/3;grid-row:auto;height:58vh}
+    .hi2,.hi3{height:26vh}
+    .hv-ring{display:none}
+    .hero-overlay{left:24px;bottom:24px}
+    .atelier-grid,.visit-grid{grid-template-columns:1fr;gap:56px}
+    .at-visual{height:480px}
+    .ig-grid{grid-template-columns:repeat(3,1fr)}
+    .nav-links{display:none}
+    .burger{display:block}
+    .nav{grid-template-columns:auto 1fr auto}
+    .logo{justify-self:start}
+    .foot-top{grid-template-columns:1fr 1fr;gap:40px}
+    section{padding:88px 0}
+  }
+  @media(max-width:640px){
+    .grid{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr}
+    .visit-info{grid-template-columns:1fr}
+    .vi{border:1px solid var(--line-dark)!important;border-bottom:none!important}
+    .vi:last-child{border-bottom:1px solid var(--line-dark)!important}
+    .svc{flex-direction:column;gap:6px}
+    .svc p{text-align:left;max-width:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="loader" id="loader">
+  <img src="km-logo.png" alt="">
+  <div class="l-name">Katarina Mamić</div>
+</div>
+
+<div class="topbar">Besplatna dostava iznad 100 € <em>♡</em> Atelier — Gundulićeva 23, Zagreb <em>♡</em> Šivanje po mjeri</div>
+
+<header id="header">
+  <div class="wrap nav">
+    <nav class="nav-links">
+      <a href="#shop">Shop</a>
+      <a href="#kolekcije">Kolekcije</a>
+      <a href="#atelier">Atelier</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#" class="logo">
+      <img src="km-logo.png" alt="Katarina Mamić Design logo">
+      <span class="logotext">
+        <span class="name">Katarina Mamić</span>
+        <span class="sub">Design</span>
+      </span>
+    </a>
+    <div class="nav-actions">
+      <button class="cart-btn" onclick="toggleCart(true)">
+        Košarica <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="burger">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding:20px 0 36px">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hi hi1 rv in">
+        <div class="bg"></div>
+        <span class="cap">Haljina Uma — svila</span>
+        <div class="hero-overlay">
+          <div class="hero-kicker">Nova kolekcija — Ljeto 2026</div>
+          <a href="#shop" class="btn"><span>Istraži kolekciju</span></a>
+        </div>
+      </div>
+      <div class="hi hi2 rv in d1">
+        <div class="bg"></div>
+        <span class="cap">Haljina Lana</span>
+      </div>
+      <div class="hi hi3 rv in d2">
+        <div class="bg"></div>
+        <span class="cap">Atelier Zagreb</span>
+      </div>
+      <div class="hv-ring">
+        <svg viewBox="0 0 150 150">
+          <defs><path id="circ" d="M 75,75 m -55,0 a 55,55 0 1,1 110,0 a 55,55 0 1,1 -110,0"/></defs>
+          <text style="font-size:10.5px;letter-spacing:3.2px;fill:#948b8e;text-transform:uppercase;font-family:Jost,sans-serif">
+            <textPath href="#circ">ATELIER ZAGREB · RUČNI RAD · OD 2013 ·</textPath>
+          </text>
+        </svg>
+        <span class="heart">♡</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="usp">
+  <div class="wrap usp-grid">
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.5-9C.7 8.6 2.5 5 6 5c2.2 0 3.5 1.2 6 3.8C14.5 6.2 15.8 5 18 5c3.5 0 5.3 3.6 3.5 7-2.5 4.4-9.5 9-9.5 9z"/></svg>
+      Dizajnirano u Zagrebu
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5 20 19M8 16.5 20 5"/></svg>
+      Ručno krojeno
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="19" r="1.8"/><circle cx="17" cy="19" r="1.8"/></svg>
+      Besplatna dostava iznad 100 €
+    </div>
+  </div>
+</div>
+
+<section id="kolekcije">
+  <div class="wrap">
+    <div class="col-head">
+      <div>
+        <div class="sec-label rv">Kolekcije</div>
+        <h2 class="sec-title rv d1">Za svaki tvoj<br><em>poseban</em> trenutak</h2>
+      </div>
+      <p class="rv d2">Od svečanih večeri do ljetnih dana — svaka kolekcija priča svoju priču.</p>
+    </div>
+    <div class="collections">
+      <div class="col-card cc1 rv" onclick="filterShop('svecane', true)">
+        <div class="bg"></div><div class="shade"></div>
+        <span class="num">01</span>
+        <div class="col-meta">
+          <div><h3>Svečane haljine</h3><span class="cnt">30+ modela</span></div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="col-card cc2 rv d1" onclick="filterShop('vecernje', true)">
+        <div class="bg"></div><div class="shade"></div>
+        <span class="num">02</span>
+        <div class="col-meta">
+          <div><h3>Večernja elegancija</h3><span class="cnt">Crna kolekcija</span></div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="col-card cc3 rv" onclick="filterShop('ljetne', true)">
+        <div class="bg"></div><div class="shade"></div>
+        <span class="num">03</span>
+        <div class="col-meta">
+          <div><h3>Ljetna kolekcija</h3><span class="cnt">Lagane linije</span></div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="col-card cc4 rv d1" onclick="filterShop('mama-kci', true)">
+        <div class="bg"></div><div class="shade"></div>
+        <span class="num">04</span>
+        <div class="col-meta">
+          <div><h3>Mama &amp; kći</h3><span class="cnt">Kombinacije sa srcem</span></div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <div class="wrap">
+    <div class="shop-head">
+      <div>
+        <div class="sec-label rv">Web Shop</div>
+        <h2 class="sec-title rv d1">Izdvojeni <em>modeli</em></h2>
+      </div>
+      <div class="filters rv d2" id="filters">
+        <button class="chip active" data-f="sve" onclick="filterShop('sve')">Sve</button>
+        <button class="chip" data-f="svecane" onclick="filterShop('svecane')">Svečane</button>
+        <button class="chip" data-f="vecernje" onclick="filterShop('vecernje')">Večernje</button>
+        <button class="chip" data-f="ljetne" onclick="filterShop('ljetne')">Ljetne</button>
+        <button class="chip" data-f="mama-kci" onclick="filterShop('mama-kci')">Mama &amp; kći</button>
+      </div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+    <div class="shop-more rv">
+      <a href="#" class="btn"><span>Pogledaj sve modele</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <span class="heartmark rv">♡</span>
+    <blockquote class="rv d1">“Moda je moj posao, ali ujedno i najveći <b>hobi</b> — jer zaista uživam u tome što radim.”</blockquote>
+    <cite class="rv d2">— Katarina Mamić, dizajnerica</cite>
+  </div>
+  <span class="big-k">K</span>
+</section>
+
+<section id="atelier">
+  <div class="wrap atelier-grid">
+    <div class="at-visual rv">
+      <div class="at-photo"></div>
+      <div class="at-card">
+        <div class="num">10+</div>
+        <div class="lbl">godina brenda<br>Katarina Mamić Design</div>
+      </div>
+    </div>
+    <div class="at-text">
+      <div class="sec-label rv">Atelier</div>
+      <h2 class="sec-title rv d1">Priča koja je počela<br>jednim <em>srcem</em></h2>
+      <p class="lead rv d2">Sve je krenulo od tunike ukrašene srcima — nastale spontano, a rasprodane u trenu.</p>
+      <p class="rv d2">Uslijedile su haljine sa srcima u mama-kći kombinacijama koje su obilježile gotovo desetljeće. Danas je fokus na svečanim haljinama: preko 30 modela, svaki dizajniran i krojen u ateliru u srcu Zagreba.</p>
+      <div class="at-services rv d3">
+        <div class="svc">
+          <span class="s-num">01</span>
+          <h4>Šivanje po mjeri</h4>
+          <p>Svaku haljinu prilagođavamo tvojim mjerama — bez nadoplate.</p>
+        </div>
+        <div class="svc">
+          <span class="s-num">02</span>
+          <h4>Privatna proba u ateliru</h4>
+          <p>Rezerviraj termin i isprobaj modele uz osobnu preporuku Katarine.</p>
+        </div>
+      </div>
+      <a href="#kontakt" class="btn rv d4"><span>Rezerviraj termin</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="ig-sec">
+  <div class="wrap">
+    <div class="ig-head">
+      <div class="sec-label rv" style="margin-bottom:10px">Instagram</div>
+      <h2 class="rv d1 serif">@katarinamamic</h2>
+      <p class="rv d2">Pridruži se zajednici od 34.000 pratitelja</p>
+    </div>
+    <div class="ig-grid" id="igGrid">
+      <a class="ig rv" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g1"></div><span>♡</span></a>
+      <a class="ig rv d1" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g5"></div><span>♡</span></a>
+      <a class="ig rv d2" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g4"></div><span>♡</span></a>
+      <a class="ig rv d1" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g2"></div><span>♡</span></a>
+      <a class="ig rv d2" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g6"></div><span>♡</span></a>
+      <a class="ig rv d3" href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener"><div class="bg g8"></div><span>♡</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="visit">
+  <div class="wrap visit-grid">
+    <div>
+      <div class="sec-label rv">Posjeti nas</div>
+      <h2 class="rv d1">Dobrodošla u <em>atelier</em></h2>
+      <p class="lead rv d2">Isprobaj haljine uživo, uz kavu i osobnu preporuku. Nalazimo se u samom srcu Zagreba — Gundulićeva 23.</p>
+      <a href="https://maps.google.com/?q=Gundulićeva+23+Zagreb" target="_blank" rel="noopener" class="btn light rv d3"><span>Otvori kartu</span></a>
+    </div>
+    <div class="visit-info rv d2">
+      <div class="vi">
+        <h4>Adresa</h4>
+        <p>Gundulićeva 23<br>10000 Zagreb</p>
+      </div>
+      <div class="vi">
+        <h4>Radno vrijeme</h4>
+        <p>Pon – Pet · 10 – 18h<br>Subota · 10 – 15h</p>
+      </div>
+      <div class="vi">
+        <h4>Kontakt</h4>
+        <p><a href="mailto:katarina.racuni@gmail.com">katarina.racuni@gmail.com</a></p>
+      </div>
+      <div class="vi">
+        <h4>Prati nas</h4>
+        <p><a href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.facebook.com/DesignByKatarinaMamic/" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+    </div>
+  </div>
+  <span class="big-heart">♡</span>
+</section>
+
+<section class="news">
+  <div class="wrap news-inner">
+    <h2 class="rv">Budi prva koja zna za <em>nove modele</em></h2>
+    <p class="rv d1">Novosti iz atelira, najave kolekcija i posebne ponude — bez spama, obećavamo.</p>
+    <form class="news-form rv d2" onsubmit="event.preventDefault(); showToast('Hvala na prijavi ♡');">
+      <input type="email" placeholder="Tvoja e-mail adresa" required>
+      <button type="submit">Prijavi se</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="name">Katarina Mamić</span>
+        <span class="sub">Design ♡</span>
+        <p>Svečane haljine dizajnirane i krojene u zagrebačkom ateliru. Jednostavno, ženstveno, s dozom glamura.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Shop</h5>
+        <a href="#shop">Svečane haljine</a>
+        <a href="#shop">Večernja kolekcija</a>
+        <a href="#shop">Ljetna kolekcija</a>
+        <a href="#shop">Mama &amp; kći</a>
+      </div>
+      <div class="foot-col">
+        <h5>Informacije</h5>
+        <a href="#">Dostava i povrat</a>
+        <a href="#">Uvjeti kupnje</a>
+        <a href="#">Tablica veličina</a>
+        <a href="#">Privatnost</a>
+      </div>
+      <div class="foot-col">
+        <h5>Atelier</h5>
+        <a href="#kontakt">Gundulićeva 23, Zagreb</a>
+        <a href="mailto:katarina.racuni@gmail.com">katarina.racuni@gmail.com</a>
+        <a href="https://www.instagram.com/katarinamamic/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/DesignByKatarinaMamic/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Katarina Mamić Design. Sva prava pridržana.</span>
+      <span class="made">Dizajn — <a href="mailto:sanela@amelodesign.com">Amelo Design</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>Tvoja <span>košarica</span></h3>
+    <button class="drawer-close" onclick="toggleCart(false)">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Ukupno</span><b id="cartTotal">0,00 €</b></div>
+    <button class="btn solid" onclick="checkout()"><span>Nastavi na plaćanje</span></button>
+    <div class="drawer-note">Demo košarica — plaćanje se spaja u sljedećoj fazi</div>
+  </div>
+</aside>
+
+<div class="toast" id="toast">Dodano u košaricu <em>♡</em></div>
+
+<script>
+/* ============================================================
+   INSTAGRAM FEED — zalijepi Behold feed URL između navodnika.
+   Kako do njega: behold.so → registracija (besplatno) →
+   Katarina poveže svoj IG račun → "Add feed" → kopiraj JSON URL.
+   Dok je prazno, prikazuju se roza placeholderi.
+   ============================================================ */
+const IG_FEED_URL = '';
+
+async function loadInstagram(){
+  if(!IG_FEED_URL) return;
+  try{
+    const res = await fetch(IG_FEED_URL);
+    const data = await res.json();
+    const posts = (data.posts || data).slice(0, 6);
+    if(!posts.length) return;
+    document.getElementById('igGrid').innerHTML = posts.map(p => `
+      <a class="ig rv in" href="${p.permalink}" target="_blank" rel="noopener">
+        <img class="bg" src="${p.mediaType === 'VIDEO' ? (p.thumbnailUrl || p.mediaUrl) : (p.sizes?.medium?.mediaUrl || p.mediaUrl)}" alt="Instagram objava" loading="lazy">
+        <span>♡</span>
+      </a>`).join('');
+  }catch(e){
+    console.warn('Instagram feed nije dostupan:', e);
+  }
+}
+loadInstagram();
+
+const PRODUCTS = [
+  {id:1, name:'Haljina Uma',    cat:'svecane',  catLabel:'Svečane',     price:129, g:'g1', tag:'Bestseler'},
+  {id:2, name:'Haljina Lana',   cat:'vecernje', catLabel:'Večernje',    price:159, g:'g4', tag:'Novo'},
+  {id:3, name:'Haljina Nika',   cat:'ljetne',   catLabel:'Ljetne',      price:89,  g:'g2', tag:''},
+  {id:4, name:'Haljina Ema',    cat:'svecane',  catLabel:'Svečane',     price:149, g:'g3', tag:''},
+  {id:5, name:'Haljina Petra',  cat:'ljetne',   catLabel:'Ljetne',      price:79,  g:'g5', tag:'Novo'},
+  {id:6, name:'Haljina Dora',   cat:'vecernje', catLabel:'Večernje',    price:169, g:'g7', tag:''},
+  {id:7, name:'Set Mila',       cat:'mama-kci', catLabel:'Mama & kći',  price:169, g:'g6', tag:'Set'},
+  {id:8, name:'Haljina Vita',   cat:'svecane',  catLabel:'Svečane',     price:139, g:'g8', tag:''},
+  {id:9, name:'Set Iva',        cat:'mama-kci', catLabel:'Mama & kći',  price:179, g:'g5', tag:'Set'},
+];
+const GRADS = {
+  g1:'linear-gradient(168deg,#e9b3c2,#a95a75)', g2:'linear-gradient(168deg,#f3ccd6,#cf93a7)',
+  g3:'linear-gradient(168deg,#cbb7d6,#8f74a3)', g4:'linear-gradient(168deg,#332e30,#0e0d0d)',
+  g5:'linear-gradient(168deg,#f0dde2,#c5a3ad)', g6:'linear-gradient(168deg,#ded3d6,#9d8790)',
+  g7:'linear-gradient(168deg,#c9c9c9,#6f6f6f)', g8:'linear-gradient(168deg,#efc0ce,#b76d88)',
+};
+let cart = [];
+
+function fmt(n){ return n.toFixed(2).replace('.',',') + ' €'; }
+
+function renderProducts(filter='sve'){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = PRODUCTS
+    .filter(p => filter==='sve' || p.cat===filter)
+    .map((p,i) => `
+      <div class="product rv in">
+        <div class="ph">
+          <div class="bg ${p.g}"></div>
+          ${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+          <span class="dress">${p.name.split(' ').pop()}</span>
+          <button class="add" onclick="addToCart(${p.id})">Dodaj u košaricu — ${fmt(p.price)}</button>
+        </div>
+        <div class="p-info">
+          <div>
+            <div class="p-name">${p.name}</div>
+            <div class="p-cat">${p.catLabel}</div>
+          </div>
+          <div class="p-price">${fmt(p.price)}</div>
+        </div>
+      </div>`).join('');
+}
+
+function filterShop(f, scroll=false){
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.f===f));
+  renderProducts(f);
+  if(scroll) document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+}
+
+function addToCart(id){
+  const item = cart.find(i => i.id===id);
+  if(item) item.qty++;
+  else { const p = PRODUCTS.find(p=>p.id===id); cart.push({...p, qty:1}); }
+  renderCart(); showToast('Dodano u košaricu <em>♡</em>');
+}
+
+function changeQty(id, d){
+  const item = cart.find(i => i.id===id);
+  if(!item) return;
+  item.qty += d;
+  if(item.qty <= 0) cart = cart.filter(i => i.id!==id);
+  renderCart();
+}
+
+function removeItem(id){ cart = cart.filter(i => i.id!==id); renderCart(); }
+
+function renderCart(){
+  const body = document.getElementById('cartBody');
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const total = cart.reduce((s,i)=>s+i.qty*i.price,0);
+  const cc = document.getElementById('cartCount');
+  cc.textContent = count;
+  cc.classList.toggle('hot', count>0);
+  document.getElementById('cartTotal').textContent = fmt(total);
+  if(!cart.length){
+    body.innerHTML = '<div class="cart-empty">Tvoja košarica je prazna.<br>Vrijeme je za novu haljinu ♡</div>';
+    return;
+  }
+  body.innerHTML = cart.map(i => `
+    <div class="cart-item">
+      <div class="ci-thumb" style="background:${GRADS[i.g]}"></div>
+      <div class="ci-info">
+        <div class="ci-name">${i.name}</div>
+        <div class="ci-meta">${i.catLabel}</div>
+        <div class="ci-row">
+          <div class="qty">
+            <button onclick="changeQty(${i.id},-1)">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty(${i.id},1)">+</button>
+          </div>
+          <span class="ci-price">${fmt(i.qty*i.price)}</span>
+        </div>
+        <button class="ci-remove" onclick="removeItem(${i.id})">Ukloni</button>
+      </div>
+    </div>`).join('');
+}
+
+function toggleCart(open){
+  document.getElementById('drawer').classList.toggle('open', open);
+  document.getElementById('overlay').classList.toggle('open', open);
+}
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  if(msg) t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+function checkout(){
+  alert('Demo: ovdje se spaja plaćanje (Stripe / CorvusPay / pouzeće) u sljedećoj fazi.');
+}
+
+/* Reveal on scroll */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* Header shadow on scroll */
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 10);
+}, {passive:true});
+
+/* Preloader */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('done'), 600);
+});
+setTimeout(() => document.getElementById('loader').classList.add('done'), 2500);
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
