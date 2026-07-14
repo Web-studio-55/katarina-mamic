@@ -66,6 +66,21 @@
     text-align:center;padding:11px 16px;font-weight:600;
   }
   .topbar em{font-style:normal;color:var(--rose)}
+  .topbar a{color:var(--rose);text-decoration:none;border-bottom:1px solid rgba(243,204,214,.45)}
+  .topbar a:hover{border-bottom-color:var(--rose)}
+
+  /* ---------- Zapošljavamo ---------- */
+  .hire{background:var(--paper);padding:84px 0}
+  .hire-card{
+    max-width:640px;margin:0 auto;text-align:center;position:relative;
+    border:1px solid var(--line);background:#fff;padding:64px 40px;
+    box-shadow:0 30px 70px rgba(14,13,13,.05);
+  }
+  .hire-card::before{content:"";position:absolute;inset:14px;border:1px dashed var(--rose-deep);opacity:.4;pointer-events:none}
+  .hire-card .hh{font-size:21px;color:var(--rose-deep);display:block;margin-bottom:18px}
+  .hire-card h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(28px,3.6vw,40px);margin-bottom:16px}
+  .hire-card p{color:var(--stone);margin-bottom:34px}
+  .hire-cta{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;position:relative;z-index:2}
 
   /* ---------- Header ---------- */
   header{
@@ -199,6 +214,8 @@
   }
   @media(max-width:640px){
     .topbar{font-size:8.5px;letter-spacing:.16em;padding:9px 10px}
+    .hide-sm{display:none}
+    .hire-card{padding:48px 24px}
     .nav{height:70px}
     .logo{gap:9px}
     .logo img{height:34px}
@@ -549,6 +566,8 @@
   }
   @media(max-width:640px){
     .topbar{font-size:8.5px;letter-spacing:.16em;padding:9px 10px}
+    .hide-sm{display:none}
+    .hire-card{padding:48px 24px}
     .nav{height:70px}
     .logo{gap:9px}
     .logo img{height:34px}
@@ -591,7 +610,7 @@
   <div class="l-name">Katarina Mamić</div>
 </div>
 
-<div class="topbar">Free shipping over €100 <em>♡</em> Atelier — Gundulićeva 23, Zagreb <em>♡</em> Made to measure</div>
+<div class="topbar">Free shipping over €100 <em>♡</em> Atelier — Gundulićeva 23, Zagreb<span class="hide-sm"> <em>♡</em> Made to measure</span> <em>♡</em> <a href="#zaposljavamo">We&rsquo;re hiring</a></div>
 
 <header id="header">
   <div class="wrap nav">
@@ -841,6 +860,20 @@
     </div>
   </div>
   <span class="big-heart">♡</span>
+</section>
+
+<section id="zaposljavamo" class="hire">
+  <div class="wrap">
+    <div class="hire-card rv">
+      <span class="hh">♡</span>
+      <h2>Join our team</h2>
+      <p>We are looking for a team member experienced in tailoring and sewing.<br>Atelier — Gundulićeva 23, Zagreb.</p>
+      <div class="hire-cta">
+        <a href="mailto:katarina.racuni@gmail.com" class="btn"><span>Get in touch</span></a>
+        <a href="tel:+385981870395" class="link-line">+385 98 187 0395</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="news">
