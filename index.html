@@ -102,6 +102,19 @@
   .cart-count.hot{background:var(--ink);color:var(--white)}
   .burger{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink)}
 
+  /* ---------- Mobilni meni ---------- */
+  .mnav{
+    position:fixed;inset:0;background:var(--paper);z-index:150;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;
+    opacity:0;pointer-events:none;transition:opacity .4s;
+  }
+  .mnav.open{opacity:1;pointer-events:auto}
+  .mnav a{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;text-decoration:none;transition:color .3s}
+  .mnav a:hover{color:var(--rose-deep)}
+  .mnav .mnav-heart{color:var(--rose-deep);font-size:20px}
+  .mnav a.mlang{font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase}
+  .mnav .close{position:absolute;top:24px;right:24px;background:none;border:none;font-size:26px;cursor:pointer;color:var(--stone)}
+
   /* ---------- Hero (image-first) ---------- */
   .hero{position:relative;overflow:hidden;background:var(--paper)}
   .hero-grid{
@@ -185,6 +198,31 @@
     .usp-item:nth-child(n+3){border-top:1px solid var(--line)}
   }
   @media(max-width:640px){
+    .topbar{font-size:8.5px;letter-spacing:.16em;padding:9px 10px}
+    .nav{height:70px}
+    .logo{gap:9px}
+    .logo img{height:34px}
+    .logo .name{font-size:18px}
+    .logo .sub{font-size:8px;letter-spacing:.4em}
+    .lang{display:none}
+    .cart-btn{font-size:10px;letter-spacing:.16em;gap:7px}
+    section{padding:60px 0}
+    .hi1{height:52vh}
+    .hi2,.hi3{height:23vh}
+    .hero-overlay{left:18px;bottom:18px}
+    .hero-overlay .btn{padding:14px 26px;letter-spacing:.22em;font-size:10px}
+    .hero-kicker{letter-spacing:.28em;font-size:10px;margin-bottom:16px}
+    .cc1,.cc2,.cc3,.cc4{height:330px}
+    .col-meta h3{font-size:23px}
+    .col-meta .arrow{width:42px;height:42px;font-size:15px}
+    .quote .big-k{font-size:190px;right:-26px;bottom:-52px}
+    .at-visual{height:auto}
+    .at-photo{position:relative;width:100%;height:350px;padding:30px}
+    .at-card{position:relative;width:100%;right:auto;bottom:auto;margin-top:14px;padding:30px 26px}
+    .visit .big-heart{font-size:250px;right:-70px}
+    .map-embed iframe{height:200px}
+    .drawer{width:100vw;max-width:100vw;right:-105vw}
+    .foot-top{padding:56px 0 40px;gap:32px}
     .usp-grid{grid-template-columns:1fr}
     .usp-item{border-left:none;border-top:1px solid var(--line);justify-content:flex-start;padding:20px 24px}
     .usp-item:first-child{border-top:none}
@@ -510,6 +548,31 @@
     section{padding:88px 0}
   }
   @media(max-width:640px){
+    .topbar{font-size:8.5px;letter-spacing:.16em;padding:9px 10px}
+    .nav{height:70px}
+    .logo{gap:9px}
+    .logo img{height:34px}
+    .logo .name{font-size:18px}
+    .logo .sub{font-size:8px;letter-spacing:.4em}
+    .lang{display:none}
+    .cart-btn{font-size:10px;letter-spacing:.16em;gap:7px}
+    section{padding:60px 0}
+    .hi1{height:52vh}
+    .hi2,.hi3{height:23vh}
+    .hero-overlay{left:18px;bottom:18px}
+    .hero-overlay .btn{padding:14px 26px;letter-spacing:.22em;font-size:10px}
+    .hero-kicker{letter-spacing:.28em;font-size:10px;margin-bottom:16px}
+    .cc1,.cc2,.cc3,.cc4{height:330px}
+    .col-meta h3{font-size:23px}
+    .col-meta .arrow{width:42px;height:42px;font-size:15px}
+    .quote .big-k{font-size:190px;right:-26px;bottom:-52px}
+    .at-visual{height:auto}
+    .at-photo{position:relative;width:100%;height:350px;padding:30px}
+    .at-card{position:relative;width:100%;right:auto;bottom:auto;margin-top:14px;padding:30px 26px}
+    .visit .big-heart{font-size:250px;right:-70px}
+    .map-embed iframe{height:200px}
+    .drawer{width:100vw;max-width:100vw;right:-105vw}
+    .foot-top{padding:56px 0 40px;gap:32px}
     .grid{grid-template-columns:1fr}
     .foot-top{grid-template-columns:1fr}
     .visit-info{grid-template-columns:1fr}
@@ -550,10 +613,20 @@
       <button class="cart-btn" onclick="toggleCart(true)">
         Košarica <span class="cart-count" id="cartCount">0</span>
       </button>
-      <button class="burger">☰</button>
+      <button class="burger" onclick="toggleMenu(true)" aria-label="Menu">☰</button>
     </div>
   </div>
 </header>
+
+<div class="mnav" id="mnav">
+  <button class="close" onclick="toggleMenu(false)" aria-label="Zatvori">✕</button>
+  <a href="#shop" onclick="toggleMenu(false)">Shop</a>
+  <a href="#kolekcije" onclick="toggleMenu(false)">Kolekcije</a>
+  <a href="#atelier" onclick="toggleMenu(false)">Atelier</a>
+  <a href="#kontakt" onclick="toggleMenu(false)">Kontakt</a>
+  <span class="mnav-heart">♡</span>
+  <a class="mlang" href="/en/">English</a>
+</div>
 
 <section class="hero" style="padding:20px 0 36px">
   <div class="wrap">
@@ -977,6 +1050,10 @@ function showToast(msg){
 
 function checkout(){
   alert('Demo: ovdje se spaja plaćanje (Stripe / CorvusPay / pouzeće) u sljedećoj fazi.');
+}
+
+function toggleMenu(open){
+  document.getElementById('mnav').classList.toggle('open', open);
 }
 
 /* Reveal on scroll */
