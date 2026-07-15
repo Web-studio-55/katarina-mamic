@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{--paper:#fcfaf9;--rose-mist:#faf2f4;--rose:#f3ccd6;--rose-deep:#c98ba0;--ink:#0e0d0d;--stone:#948b8e;--line:#ebe3e5}
-  *{margin:0;padding:0;box-sizing:border-box}
+  *{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:hidden;max-width:100%}
   body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);font-weight:300;line-height:1.8;letter-spacing:.015em;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   .top{border-bottom:1px solid var(--line);background:rgba(252,250,249,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
@@ -36,7 +36,7 @@
   .back{display:inline-block;margin-top:56px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:5px}
   .back:hover{color:var(--rose-deep);border-color:var(--rose-deep)}
   footer{border-top:1px solid var(--line);padding:26px 24px;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
-  @media(max-width:600px){table{font-size:12.5px}th,td{padding:9px 8px}}
+  @media(max-width:600px){table{display:block;overflow-x:auto;font-size:12.5px}th,td{padding:9px 8px}}
 </style>
 </head>
 <body>
