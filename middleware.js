@@ -52,7 +52,7 @@ const COMING_SOON = `<!DOCTYPE html>
   .gate.open{display:flex}
   .gate input{
     flex:1;border:none;background:none;outline:none;padding:12px 4px;text-align:center;
-    font-family:'Jost',sans-serif;font-size:14px;letter-spacing:.14em;color:var(--ink);
+    font-family:'Jost',sans-serif;font-size:16px;letter-spacing:.14em;color:var(--ink);
   }
   .gate input::placeholder{color:var(--stone);font-size:12px;letter-spacing:.1em}
   .gate button{
